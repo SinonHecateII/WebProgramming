@@ -2,6 +2,20 @@
 <html>
     <head>
         <title>API 정보 사이트</title>  <!--Chapter2 타이틀-->
+
+    <style>  /*Chapter4 CSS 스타일*/
+        body{
+            background-color: antiquewhite;  /*Chapter4 색 꾸미기*/
+            margin-left : 30px;
+            margin-right: 30px;
+        }
+        h3{
+            text-align: center;  /*Chapter4 텍스트 꾸미기*/
+        }
+        span:hover{  /*Chapter4 셀렉터*/
+            background: lightgray;
+        }
+    </style>
     </head>
     <body>
         <h3>API</h3>  <!--Chapter2 문단제목-->
@@ -11,11 +25,11 @@
                 <dd><img src = "API.png" width = "80" height = "60" alt = "API Image">  <!--Chapter2 이미지 삽입-->
                     API란 ㄴㅁㄹㄹㄴㅇㄹㄴㅇㄹ</dd><br>
                     <details>  <!--Chapter3 시맨틱 태그-->
-                        <summary>API 소개 영상</summary>
+                        <summary><span>API 소개 영상<span></summary>
                         <video src = "APIVideo.mp4" width = "300" height = "180" controls>  <!--Chapter2 미디어 삽입-->
                     </details>  
             <dt><strong>API 사용처</strong>
-                <dd><form>
+                <dd><form>  <!--Chapter3 콤보박스-->
                     <select name = "API">
                         <option value="1">GitHub</option>
                         <option value="2">KAKAO</option>
