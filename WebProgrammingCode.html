@@ -38,14 +38,31 @@
         #float{  /*Chaptyer5 배치*/
             float : left;
         }
+        #fixed{
+            position : fixed;
+            width : 100%;
+            background : gray;
+            color : black;
+            bottom : 0px;
+            right : 0px;
+        }
     </style>
     </head>
     <body>
         <h3>API</h3>  <!--Chapter2 문단제목-->
         <hr>  <!--Chapter2 수평선 긋기-->
-        <script> 
+        <div id = "fixed"><span id = "time">현재시간</span></div>
+        <script>
+            obj = document.getElementById("time");
+            var dateID = setInterval("NowTime()", 1000);  /*Chapter10 intercal Timer*/
+
+            function NowTime(){  /*Chapter6 함수 정의*/
+                var current = new Date();
+                obj.innerHTML = current.toLocaleTimeString();
+            }
+
             function DisplayAPI(language){  /*Chapter6 표 속성 클릭시 설명 전환 함수 정의*/
-                var Line = document.getElementById("APILine");  /**Chapter8 getElementById*/
+                var Line = document.getElementById("APILine");  /*Chapter8 getElementById*/
                 switch(language){
                     case 'cURL':
                         Line.innerHTML = "curl \<br>-H 'Accept: application/vnd.github.v3+json' \<br>https://api.github.com/repositories";
@@ -86,7 +103,7 @@
                         <tbody>  <!--Chapter9 마우스 핸들링-->
                             <tr><td onclick = "DisplayAPI('cURL')">cURL</td><td onclick = "DisplayAPI('JS')">JavaScript</td><td onclick = "DisplayAPI('GitHub CLI')">GitHub CLI</td></tr>
                         </tbody>
-                    </table>
+                    </table>         
         </dl>
         </body>
 </html>
