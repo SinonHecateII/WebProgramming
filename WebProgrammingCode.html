@@ -103,7 +103,48 @@
                         <tbody>  <!--Chapter9 마우스 핸들링-->
                             <tr><td onclick = "DisplayAPI('cURL')">cURL</td><td onclick = "DisplayAPI('JS')">JavaScript</td><td onclick = "DisplayAPI('GitHub CLI')">GitHub CLI</td></tr>
                         </tbody>
-                    </table>         
+                    </table>
+                    <canvas id = "myCanvas" width = "200 " height = "200"></canvas>  <!--Chapter11 도형 그리기-->        
         </dl>
+        <script>
+            const canvas = document.getElementById('myCanvas');
+            const ctx = canvas.getContext('2d');
+        
+            var width = canvas.clientWidth;
+            var height = canvas.clientHeight;
+
+            var value = [50, 100, 100];
+            var degree = 360;
+            const radius = 50;
+
+            var sum = value.reduce((a, b) => a + b);  //총합계
+
+            var conv_array = value.slice().map((data)=>{  //conv_array는 비율이 담긴 배열
+                var rate = data / sum;  //값을 총합계로 나누어 비율을 구함
+                var myDegree = degree * rate;  //비율을 360을(degree) 곱해 비율에 따른 도(degree)를 구함.
+                return myDegree;
+            });
+
+            degree = 0;  //초기화
+            
+            for(var i=0;i < conv_array.length;i++){
+                var item = conv_array[i];
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(width/2, height/2);
+                if(i == 0){
+                    ctx.arc(width/2, height/2, radius, (Math.PI/180)*0, (Math.PI/180)* item , false);
+                    degree = item;
+                    console.log(0, degree);
+                } else {
+                    ctx.arc(width/2, height/2, radius, (Math.PI/180)*degree, (Math.PI/180)*(degree + item), false);
+                    console.log(degree, degree + item);
+                    degree =  degree + item;
+                }
+                ctx.closePath();
+                ctx.stroke();
+                ctx.restore();
+            }
+        </script>
         </body>
 </html>
