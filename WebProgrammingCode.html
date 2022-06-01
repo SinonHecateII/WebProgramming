@@ -49,8 +49,9 @@
     </style>
     </head>
     <body>
-        <h3>API</h3>  <!--Chapter2 문단제목-->
+        <h3 style = "font-size:40px">API</h3>  <!--Chapter2 문단제목-->
         <hr>  <!--Chapter2 수평선 긋기-->
+        <hr>
         <div id = "fixed"><span id = "time">현재시간</span></div>
         <script>
             obj = document.getElementById("time");
@@ -62,33 +63,50 @@
             }
 
             function DisplayAPI(language, site){  /*Chapter6 표 속성 클릭시 설명 전환 함수 정의*/
-                var Line = document.getElementById("APILine");  /*Chapter8 getElementById*/
+                var GitHubLine = document.getElementById("GitHubLine");  /*Chapter8 getElementById*/
+                var KAKAOLine = document.getElementById("KAKAOLine");
+                var YouTubeLine = document.getElementById("YouTubeLine");
                 switch(site){
                     case 'GitHub':
                         switch(language){
                             case 'cURL':
-                                Line.innerHTML = "curl \<br>-H 'Accept: application/vnd.github.v3+json' \<br>https://api.github.com/repositories";
+                                GitHubLine.innerHTML = "curl \<br>-H 'Accept: application/vnd.github.v3+json' \<br>https://api.github.com/repositories";
                                 break;
                             case 'JS':
-                                Line.innerHTML = "// Octokit.js<br>// https://github.com/octokit/core.js#readme<br>const octokit = new Octokit({<br>  auth: 'personal-access-token123'<br>})<br><br>wait octokit.request('GET /repositories', {}"; 
+                                GitHubLine.innerHTML = "// Octokit.js<br>// https://github.com/octokit/core.js#readme<br>const octokit = new Octokit({<br>  auth: 'personal-access-token123'<br>})<br><br>wait octokit.request('GET /repositories', {}"; 
                                 break; 
                             case 'GitHub CLI':
-                                Line.innerHTML = "# GitHub CLI api<br># https://cli.github.com/manual/gh_api<br><br>gh api \<br>  -H 'Accept: application/vnd.github.v3+json' \<br>  /repositories";
+                                GitHubLine.innerHTML = "# GitHub CLI api<br># https://cli.github.com/manual/gh_api<br><br>gh api \<br>  -H 'Accept: application/vnd.github.v3+json' \<br>  /repositories";
                                 break;
                         }
                         break;
                     case 'KAKAO':
-                        case 'REST API':
-                            Line.innerHTML = "GET /v1/api/talk/profile HTTP/1.1<br>Host: kapi.kakao.com<br>Authorization: Bearer ${ACCESS_TOKEN}";
+                        switch(language){
+                            case 'REST API':
+                                KAKAOLine.innerHTML = "GET /v1/api/talk/profile HTTP/1.1<br>Host: kapi.kakao.com<br>Authorization: Bearer ${ACCESS_TOKEN}";
+                                break;
+                            case 'JS':
+                                KAKAOLine.innerHTML = "Kakao.API.request({<br>  url: '/v1/api/talk/profile',<br>  success: function(response) {<br>    console.log(response);<br>  },<br>  fail: function(error) {<br>    console.log(error);<br>  }<br>});"; 
+                                break; 
+                            case 'Android Kotlin':
+                                KAKAOLine.innerHTML = "TalkApiClient.instance.profile { profile, error -><br>    if (error != null) {<br>        Log.e(TAG, '카카오톡 프로필 가져오기 실패', error)<br>    }<br>    else if (profile != null) {<br>        Log.i(TAG, '카카오톡 프로필 가져오기 성공' +<br>                '\n닉네임: ${profile.nickname}'' +<br>                '\n프로필사진: ${profile.thumbnailUrl}')<br>    }<br>}";
+                                break;
                             break;
-                        case 'JS':
-                            Line.innerHTML = "Kakao.API.request({<br>  url: '/v1/api/talk/profile',<br>  success: function(response) {<br>    console.log(response);<br>  },<br>  fail: function(error) {<br>    console.log(error);<br>  }<br>});"; 
-                            break; 
-                        case 'Android Kotlin':
-                            Line.innerHTML = "TalkApiClient.instance.profile { profile, error -><br>    if (error != null) {<br>        Log.e(TAG, '카카오톡 프로필 가져오기 실패', error)<br>    }<br>    else if (profile != null) {<br>        Log.i(TAG, '카카오톡 프로필 가져오기 성공' +<br>                '\n닉네임: ${profile.nickname}'' +<br>                '\n프로필사진: ${profile.thumbnailUrl}')<br>    }<br>}";
-                            break;
+                        }
                         break;
-                    case 'Discord':
+                    case 'YouTube':
+                        switch(language){
+                            case 'Channels':
+                                YouTubeLine.innerHTML = '{<br>  "id": "CHANNEL_ID",<br>  "brandingSettings": {<br>    "channel": {<br>      "description": "A great channel to be enjoyed by all.",<br>      "moderateComments": true,<br>      "showRelatedChannels": true,<br>      "showBrowseView": true,<br>      "featuredChannelsTitle": "Featured Channel Stuff",<br>      "featuredChannelsUrls": [<br>        "UC_x5XG1OV2P6uZZ5FSM9Ttw",<br>        "UCBR8-60-B28hp2BmDPdntcQ",<br>        "UCK8sQmJBp8GCxrOtXWBpyEA"<br>      ],<br>      "profileColor": "#006600"<br>    }<br>  }<br>}';
+                                break;
+                            case 'Comments':
+                                YouTubeLine.innerHTML = '{<br> "snippet": {<br>  "channelId": "UC_x5XG1OV2P6uZZ5FSM9Ttw",<br>  "topLevelComment": {<br>   "snippet": {<br>    "textOriginal": "This video is awesome!"<br>   }<br>  },<br>  "videoId": "MILSirUni5E"<br> }<br>}'; 
+                                break; 
+                            case 'Playlists':
+                                YouTubeLine.innerHTML = '{<br>  "snippet": {<br>    "title": "New playlist",<br>    "description": "New playlist description"<br>  },<br>  "status": {<br>    "privacyStatus": "private"<br>  }<br>}';
+                                break;
+                            break;
+                        }
                         break;
                 }
             }
@@ -97,17 +115,21 @@
         <dl>  <!--Chapter2 리스트 만들기-->
             <dt><strong>API란?</strong>
                 <dd><img id = "float" src = "API.png" width = "80" height = "60" alt = "API Image">  <!--Chapter2 이미지 삽입-->
-                    API란 ㄴㅁㄹㄹㄴㅇㄹㄴㅇㄹ</dd><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;API(application programming interface 애플리케이션 프로그래밍 인터페이스[*], 응용 프로그램 프로그래밍 인터페이스)는 컴퓨터나 컴퓨터 프로그램 사이의 연결이다. 일종의 소프트웨어 인터페이스이며 다른 종류의 소프트웨어에 서비스를 제공한다.[1] 이러한 연결이나 인터페이스를 빌드하거나 사용하는 방법을 기술하는 문서나 표준은 API 사양으로 부른다. 이 표준을 충족하는 컴퓨터 시스템은 API가 구현(implement)되었다거나 노출(expose)되었다고 말한다. API라는 용어는 사양이나 구현체를 의미할 수 있다.<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;컴퓨터와 인간을 연결시키는 사용자 인터페이스와 반대로, API는 컴퓨터나 소프트웨어를 서로 연결한다. 직접 사람(최종 사용자)에 의해 사용되도록 고안된 것이 아니며, 대신 소프트웨어에 이를 통합하고자 하는 컴퓨터 프로그래머가 사용하도록 고안되었다. API는 각기 다른 부분으로 구성되기도 하며 프로그래머가 사용할 수 있는 도구나 서비스의 역할을 한다. 이러한 부분들 중 하나를 사용하는 프로그램이나 프로그래머는 API의 해당 부분을 호출(call)한다고 말한다. API를 구성하는 호출들은 서브루틴, 메소드(method), 요청, 통신 엔드포인트라고도 부른다. API 사양은 이 호출들을 정의하며, 다시 말해 이들을 어떻게 사용하거나 구현하는지를 설명한다는 것을 의미한다.<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;API의 한 가지 목적은 시스템이 동작하는 방식에 관한 내부의 세세한 부분을 숨기는 것으로, 내부의 세세한 부분이 나중에 변경되더라도 프로그래머가 유용하게 사용할 수 있고 일정하게 관리할 수 있는 부분들만 노출시킨다. API는 특정 시스템용으로 커스텀하게 빌드될 수도 있고, 아니면 수많은 시스템 간 상호운용성을 허용하는, 공유가 되는 표준일 수도 있다.<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;API라는 용어는 웹 API를 의미하기도 하며,[2] 이는 인터넷에 의해 병합된 컴퓨터들 간 통신을 허용한다. 프로그래밍 언어, 소프트웨어 라이브러리, 컴퓨터 운영 체제, 컴퓨터 하드웨어를 위한 API도 존재한다. API는 1940년대에 기원하였으나 이 용어는 1960년대, 70년대 들어서야 모습을 드러냈다.<br><br></dd><br>
                     <details>  <!--Chapter3 시맨틱 태그-->
                         <summary><span>API 소개 영상<span></summary>
                         <video src = "APIVideo.mp4" width = "300" height = "180" controls>  <!--Chapter2 미디어 삽입-->
                     </details>  
+                    <hr>
             <dt><strong>API 사용처</strong>
                 <dd><form>  <!--Chapter3 콤보박스-->
                     <select onchange = "choiceAPI(this)">
                         <option value="GitHub">GitHub</option>
                         <option value="KAKAO">KAKAO</option>
-                        <option value="Discord">Discord</option>
+                        <option value="YouTube">YouTube</option>
                     </select>
                     </form>
 
@@ -116,7 +138,7 @@
                             <tr><th colspan = 3>GET /repositories</th></tr>
                         </thead>
                         <tfoot>
-                            <tr><th colspan = 3 id = "APILine">curl \<br>-H "Accept: application/vnd.github.v3+json" \<br>https://api.github.com/repositories</th></tr>
+                            <tr><th colspan = 3 id = "GitHubLine">curl \<br>-H "Accept: application/vnd.github.v3+json" \<br>https://api.github.com/repositories</th></tr>
                         </tfoot>
                         <tbody>  <!--Chapter9 마우스 핸들링-->
                             <tr><td onclick = "DisplayAPI('cURL', 'GitHub')">cURL</td><td onclick = "DisplayAPI('JS', 'GitHub')">JavaScript</td><td onclick = "DisplayAPI('GitHub CLI', 'GitHub')">GitHub CLI</td></tr>
@@ -128,90 +150,100 @@
                             <tr><th colspan = 3>카카오톡 소셜 닉네임, 프로필 이미지</th></tr>
                         </thead>
                         <tfoot>
-                            <tr><th colspan = 3 id = "APILine">GET /v1/api/talk/profile HTTP/1.1<br>Host: kapi.kakao.com<br>Authorization: Bearer ${ACCESS_TOKEN}</th></tr>
+                            <tr><th colspan = 3 id = "KAKAOLine">GET /v1/api/talk/profile HTTP/1.1<br>Host: kapi.kakao.com<br>Authorization: Bearer ${ACCESS_TOKEN}</th></tr>
                         </tfoot>
                         <tbody>  <!--Chapter9 마우스 핸들링-->
                             <tr><td onclick = "DisplayAPI('REST API', 'KAKAO')">REST API</td><td onclick = "DisplayAPI('JS', 'KAKAO')">JS</td><td onclick = "DisplayAPI('Android Kotlin', 'KAKAO')">Android Kotlin</td></tr>
                         </tbody>
                     </table>
 
-                    <table id = "Discord" style = "display:none">  <!--Chapter2 표 만들기-->
+                    <table id = "YouTube" style = "display:none">  <!--Chapter2 표 만들기-->
                         <thead>
-                            <tr><th colspan = 3>GET /repositories</th></tr>
+                            <tr><th colspan = 3>YouTube API Response</th></tr>
                         </thead>
                         <tfoot>
-                            <tr><th colspan = 3 id = "APILine">api</th></tr>
+                            <tr><th colspan = 3 id = "YouTubeLine">{<br>  "id": "CHANNEL_ID",<br>  "brandingSettings": {<br>    "channel": {<br>      "description": "A great channel to be enjoyed by all.",<br>      "moderateComments": true,<br>      "showRelatedChannels": true,<br>      "showBrowseView": true,<br>      "featuredChannelsTitle": "Featured Channel Stuff",<br>      "featuredChannelsUrls": [<br>        "UC_x5XG1OV2P6uZZ5FSM9Ttw",<br>        "UCBR8-60-B28hp2BmDPdntcQ",<br>        "UCK8sQmJBp8GCxrOtXWBpyEA"<br>      ],<br>      "profileColor": "#006600"<br>    }<br>  }<br>}</th></tr>
                         </tfoot>
                         <tbody>  <!--Chapter9 마우스 핸들링-->
-                            <tr><td onclick = "DisplayAPI('cURL', 'Discord')">cURL</td><td onclick = "DisplayAPI('JS', 'Discord')">JavaScript</td><td onclick = "DisplayAPI('GitHub CLI', 'Discord')">GitHub CLI</td></tr>
+                            <tr><td onclick = "DisplayAPI('Channels', 'YouTube')">Channels</td><td onclick = "DisplayAPI('Comments', 'YouTube')">Comments</td><td onclick = "DisplayAPI('Playlists', 'YouTube')">Playlists</td></tr>
                         </tbody>
                     </table>
-                    <canvas id = "myCanvas" width = "200 " height = "200"></canvas>  <!--Chapter11 도형 그리기-->        
+                    <canvas id = "myCanvas" width = "500 " height = "400"></canvas>  <!--Chapter11 도형 그리기-->        
         </dl>
         <script>
             var GitHubTable = document.getElementById("GitHub");
             var KAKAOTable = document.getElementById("KAKAO");
-            var DiscordTable = document.getElementById("Discord");
+            var YouTubeTable = document.getElementById("YouTube");
 
             function choiceAPI(obj){  /*Chapter6 함수 정의*/
-                var api = obj.options[obj.selectedIndex].value;
+                var api = obj.options[obj.selectedIndex].value;  /*Chapter7 Array*/
 
                 switch(api){  //선택한 사이트의 API 테이블 출력
                     case 'GitHub':
                         GitHubTable.style.display = '';
                         KAKAOTable.style.display = 'none';
-                        DiscordTable.style.display = 'none';
+                        YouTubeTable.style.display = 'none';
                         break;
                     case 'KAKAO':
                         GitHubTable.style.display = 'none';
                         KAKAOTable.style.display = '';
-                        DiscordTable.style.display = 'none';
+                        YouTubeTable.style.display = 'none';
                         break;
-                    case 'Discord':
+                    case 'YouTube':
                         GitHubTable.style.display = 'none';
-                        KAKAOTable.style.display = '';
-                        DiscordTable.style.display = 'none';
+                        KAKAOTable.style.display = 'none';
+                        YouTubeTable.style.display = '';
                         break;
                 }
             }
+            canvas = document.getElementById("myCanvas");
+            context = canvas.getContext("2d");
 
-            const canvas = document.getElementById('myCanvas');
-            const ctx = canvas.getContext('2d');
-        
-            var width = canvas.clientWidth;
-            var height = canvas.clientHeight;
+            var sw = canvas.width;
+            var sh = canvas.height;
+            var PADDING = 100;
 
-            var value = [50, 100, 100];
-            var degree = 360;
-            const radius = 50;
-
-            var sum = value.reduce((a, b) => a + b);  //총합계
-
-            var conv_array = value.slice().map((data)=>{  //conv_array는 비율이 담긴 배열
-                var rate = data / sum;  //값을 총합계로 나누어 비율을 구함
-                var myDegree = degree * rate;  //비율을 360을(degree) 곱해 비율에 따른 도(degree)를 구함.
-                return myDegree;
-            });
-
-            degree = 0;  //초기화
+            var data = [42, 16, 14, 27, 7,13];
+            var colors = ['#7cfc00', '#0000ff', '#ff1493', '#66CDAA', '#ff00ff', '#FFD700'];
             
-            for(var i=0;i < conv_array.length;i++){
-                var item = conv_array[i];
-                ctx.save();
-                ctx.beginPath();
-                ctx.moveTo(width/2, height/2);
-                if(i == 0){
-                    ctx.arc(width/2, height/2, radius, (Math.PI/180)*0, (Math.PI/180)* item , false);
-                    degree = item;
-                    console.log(0, degree);
-                } else {
-                    ctx.arc(width/2, height/2, radius, (Math.PI/180)*degree, (Math.PI/180)*(degree + item), false);
-                    console.log(degree, degree + item);
-                    degree =  degree + item;
-                }
-                ctx.closePath();
-                ctx.stroke();
-                ctx.restore();
+            var center_X = sw/2;
+            var center_Y = sh / 2;
+
+            var radius = Math.min(sw - (PADDING * 2), sh - (PADDING * 2)) / 2;
+            var angle = 0;
+            var total = 0;
+            for(var i in data){
+                total += data[i];
+            }
+            for(var i = 0; i < data.length; i++){
+                context.fillStyle = colors[i];
+                context.beginPath();
+                context.moveTo(center_X, center_Y);
+                context.arc(center_X, center_Y, radius, angle, angle + (Math.PI * 2 * (data[i]/ total)));
+                context.lineTo(center_X, center_Y);
+                context.fill();
+                angle += Math.PI * 2 * (data[i] / total);
+            }
+
+            var strMessage = "사이트별 제공 API 항목 비율";
+            context.textAlign = "center";
+            context.fillStyle = "black";
+            context.font = "14pt Century Gothic";
+            context.fillText(strMessage, sw/2, 30);
+
+            AddBroswerText(context, "GitHub", "(35.2%)", colors[0], 280, 320);
+            AddBroswerText(context, "KAKAO", "(13.4%)", colors[1], 70, 320);
+            AddBroswerText(context, "YouTube", "(11.7%)", colors[2], 140, 70);
+            AddBroswerText(context, "Google Play Store", "(22.6%)", colors[3], 260, 70);
+            AddBroswerText(context, "Twitter", "(5.8%)", colors[4], 360, 130);
+            AddBroswerText(context, "Naver", "(10.9%)", colors[4], 370, 170);
+
+            function AddBroswerText(context, strBrowser, strRate, colors, text_xcoord, text_ycoord){
+                context.textAlign = "left";
+                context.fillStyle = colors;
+                context.font = "12pt Century Gothic";
+                context.fillText(strBrowser, text_xcoord, text_ycoord);
+                context.fillText(strRate, text_xcoord, text_ycoord + 20);
             }
         </script>
         </body>
